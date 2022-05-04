@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="toggle-switch.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.4.1/firebase-database.js"></script>
+</head>
+
+<body>
+    <!-- navbar -->
+
+    <nav class="navbar navbar-expand-sm navbar-dark bg-success" id = "cp-menu-bar">
+        <div class="container-fluid ">
+          <a class="navbar-brand " href="index.html"><i class="fa fa-home"></i></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item" id = "navbar-item">
+                <a class="nav-link hover" href="dashboard.html">Dashboard</a>
+              </li>	
+              <li class="nav-item dropdown" id = "navbar-item">
+                <a class="nav-link dropdown-toggle hover" href="" id="navbarScrollingDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  User
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                  <li><a class="dropdown-item" href="#">Details</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Logout</a></li>
+                </ul>
+              </li>	
+            </ul>		  
+          </div>
+        </div>
+    </nav>
+
+    <div class="container px-4">
+      <div class="row gx-5">
+        <div class="col">
+         <div class="p-3 border" style="background-color: #6BCB77;" id="run-status">
+          Motor Status
+           <br> <br>
+           STOP
+           <label class="switch">
+            <input type="checkbox" id="switch-1" onclick="changeBackground()">
+            <span class="slider round"></span>
+          </label>
+          RUN
+          </div>
+        </div>
+        <div class="col">
+          <div class="p-3 border" style="background-color: #6BCB77;" id="direction">
+            Direction
+            <br> <br>
+            REV
+            <label class="switch">
+              <input type="checkbox" id="switch-2"  onclick="changeDirection()">
+              <span class="slider round"></span>
+            </label>
+            FWD
+          </div>
+        </div>
+      </div>
+    </div>
+    <br> <br>
+
+    <div class="container px-4">
+      <div class="row gx-5">
+        <div class="col">
+         <div class="p-3 border" style="background-color: #6BCB77;" id="run-status">
+          Set Motor Speed
+          <input type="range" class="form-range" min="0" max="1500" step="1" id="motorSpeed" onchange="displaySpeed()">
+          Set Speed:
+          <label for="customRange3" class="form-label" id="speedLabel">0 </label>
+          <label for="customRange3" class="form-label" id="speedLabelUnit">RPM</label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

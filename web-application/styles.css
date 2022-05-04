@@ -1,0 +1,28 @@
+/* Universal */
+/* navbar styling */
+
+#menu-bar{
+    padding: 1% 2%;
+}
+
+#navbar-item{
+    font-weight: bold;
+    font-size: larger;
+}
+
+.fa-home{
+    font-size:2em;
+}
+
+.fa-house-signal{
+    font-size: 2em;
+}
+
+.navbar{
+    margin-bottom: 2%;
+}
+
+.p-3{
+    font-size: large;
+    font-weight: bolder;
+}
