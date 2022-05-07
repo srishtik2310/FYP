@@ -24,6 +24,8 @@ PZEM004Tv30 pzem(PZEM_SERIAL);
 #define speedPin 5
 #define fwd_relay_pin 18
 #define rev_relay_pin 19
+#define run_pin 21
+#define speed_measure_pin 2
 
 // declare network and database credentials
 #define WIFI_SSID "Srishtik" // your wifi SSID
@@ -36,6 +38,52 @@ PZEM004Tv30 pzem(PZEM_SERIAL);
 const int freq = 5000;
 const int ledChannel = 0;
 const int resolution = 12;
+
+//Configure hardware interrupt
+int count;
+
+void ICACHE_RAM_ATTR sens() {
+  count++;
+}
+
+int measure_speed(){
+  long start_time = millis();
+   while(count < 5){
+    if(millis()-start_time > 1000 && count < 5){
+      count = 0;
+      return 0;
+    }
+   }
+   long rpm = (60000/(millis()-start_time))*5;
+   count = 0;
+   return rpm;
+}
+
+void upload_measured_speed(){
+   FirebaseData firebasedata;
+   FirebaseJson json;
+   int measured_speed = measure_speed();
+   json.set("/Speed", measured_speed);
+   Firebase.updateNode(firebasedata,"/Sensors",json);
+}
+
+//function to set motor status - RUN/STOP
+void set_status(){
+  FirebaseData firebaseData;
+  if(Firebase.getString(firebaseData, "/Motor/Status")){
+    int directionData = firebaseData.intData();
+    if (directionData == 1){
+      digitalWrite(run_pin, HIGH);
+    }    
+    else if(directionData == 0){
+      digitalWrite(run_pin, LOW);                                                                                                                                                                                                                      
+    }
+  }
+  else{
+    Serial.print("Error in getInt, ");
+    Serial.println(firebaseData.errorReason());
+  } 
+}
 
 // function to set speed
 void set_speed(){
@@ -102,11 +150,13 @@ void send_sensor_value(){
    Firebase.updateNode(firebasedata,"/PZEM004T",json);
 }
 
+//Setup to run only once
 void setup ()
 {
   pinMode(speedPin, OUTPUT);
   pinMode(fwd_relay_pin, OUTPUT);
   pinMode(rev_relay_pin, OUTPUT);
+  pinMode(run_pin, OUTPUT);
   Serial.begin(115200);
   // connect to wifi.
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -124,11 +174,14 @@ void setup ()
   ledcSetup(ledChannel, freq, resolution);
   ledcAttachPin(speedPin, ledChannel);
   pzem.resetEnergy();
-  
+  pinMode(speed_measure_pin, INPUT_PULLUP); 
+  attachInterrupt(digitalPinToInterrupt(speed_measure_pin), sens, FALLING);
 }
 
-void loop() {   
+void loop() {  
+  set_status(); 
   set_direction();
   set_speed();
   send_sensor_value();
+  upload_measured_speed();
 }
