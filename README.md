@@ -5,7 +5,7 @@ The project also incorporates a PZEM004t AC power meter sensor which can measure
 pushed to the Real-time database to be displayed to the user and used for fault detection and debugging as well as raising custom alerts in case of fault conditions.
 
 <strong>Block Diagram</strong>.
-![alt text]((https://github.com/srishtik2310/FYP/blob/master/Assets/block_diagram.png))
+![plot](./Assets/block_diagram.png)
 
 The electronics hardware is structured as shown below
 
