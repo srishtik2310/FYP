@@ -28,11 +28,14 @@ Web application has 3 parts:
   3. Dashboard
 
 <strong>login Page</strong>
+
 ![plot](./Assets/login.png)
 
 <strong>Control Panel</strong>
+
 ![plot](./Assets/control_panel.png)
 
 <strong>Dashboard</strong>
+
 ![plot](./Assets/dashboard.png)
 
