@@ -4,7 +4,7 @@ The project uses an ESP32 microcontroller to control a VFD (Variable Frequency d
 The project also incorporates a PZEM004t AC power meter sensor which can measure AC voltage, current, Power, Frequency, Power factor, and energy which can then be 
 pushed to the Real-time database to be displayed to the user and used for fault detection and debugging as well as raising custom alerts in case of fault conditions.
 
-**Block diagram **
+<strong>Block Diagram</strong>.
 
 The electronics hardware is structured as shown below
 
